@@ -2,7 +2,7 @@ import FontLoader from './components/FontLoader';
 import HeroTitle from './components/HeroTitle';
 import HeroCTA from './components/HeroCTA';
 import HowItWorks from './components/HowItWorks';
-import HeroScene from './components/HeroScene';
+import HeroImage from './components/HeroImage';
 import Countdown from './components/Countdown';
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
               </div>
             </div>
             <div className="flex items-center">
-              <HeroScene />
+              <HeroImage />
             </div>
           </div>
 
