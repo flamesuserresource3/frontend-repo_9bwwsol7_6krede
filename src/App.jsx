@@ -2,10 +2,11 @@ import FontLoader from './components/FontLoader';
 import HeroTitle from './components/HeroTitle';
 import HeroImage from './components/HeroImage';
 import HeroCTA from './components/HeroCTA';
+import HowItWorks from './components/HowItWorks';
 
 function App() {
   return (
-    <div className="min-h-screen w-full bg-[#D82B2B] flex items-center justify-center p-4 sm:p-6">
+    <div className="min-h-screen w-full bg-[#D82B2B] flex flex-col items-center justify-start p-4 sm:p-6">
       <FontLoader />
 
       {/* Decorative accent blobs */}
@@ -32,6 +33,11 @@ function App() {
           <div className="h-3 bg-[#FFF6ED]" />
         </section>
       </main>
+
+      {/* Section 2: How it works */}
+      <div className="w-full mt-8">
+        <HowItWorks />
+      </div>
     </div>
   );
 }
