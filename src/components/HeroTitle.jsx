@@ -7,7 +7,7 @@ export default function HeroTitle() {
       >
         <span className="block text-2xl sm:text-3xl">🐾 SOLO PER CHI È NEL CANALE WHATSAPP 🐾</span>
         <span className="block text-4xl sm:text-5xl md:text-6xl mt-1 font-extrabold">
-          Il MIAOBAUCOUPON del mese è arrivato!
+          Il COUPON del mese è arrivato!
         </span>
       </h1>
 
