@@ -1,8 +1,9 @@
 import FontLoader from './components/FontLoader';
 import HeroTitle from './components/HeroTitle';
-import HeroImage from './components/HeroImage';
 import HeroCTA from './components/HeroCTA';
 import HowItWorks from './components/HowItWorks';
+import HeroScene from './components/HeroScene';
+import Countdown from './components/Countdown';
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
               </div>
             </div>
             <div className="flex items-center">
-              <HeroImage />
+              <HeroScene />
             </div>
           </div>
 
@@ -37,6 +38,11 @@ function App() {
       {/* Section 2: How it works */}
       <div className="w-full mt-8">
         <HowItWorks />
+      </div>
+
+      {/* Section 4: Countdown / Scadenza */}
+      <div className="w-full">
+        <Countdown />
       </div>
     </div>
   );
