@@ -1,76 +1,37 @@
 export default function HowItWorks() {
   const steps = [
     {
-      icon: '🔖',
-      title: '1️⃣ Scarica il tuo coupon',
-      desc: 'Tocca il pulsante qui sopra per ricevere il tuo codice personale.',
-      tone: 'beige',
+      title: 'Ottieni il codice',
+      desc: 'Clicca su “Scarica il tuo coupon” per generare il tuo codice unico.',
     },
     {
-      icon: '🏪',
-      title: '2️⃣ Mostralo in cassa',
-      desc: 'Fai vedere il codice al tuo punto vendita MiaoBau preferito al momento del pagamento.',
-      tone: 'red',
+      title: 'Aggiungi al carrello',
+      desc: 'Scegli i tuoi prodotti MiaoBau preferiti e procedi al checkout.',
     },
     {
-      icon: '🎁',
-      title: '3️⃣ Ricevi il tuo vantaggio',
-      desc: 'Ottieni subito lo sconto o l’omaggio esclusivo riservato a chi segue il canale WhatsApp!',
-      tone: 'beige',
+      title: 'Applica lo sconto',
+      desc: 'Inserisci il codice al momento del pagamento e goditi il risparmio!',
     },
   ];
 
-  const toneClasses = (tone) =>
-    tone === 'red'
-      ? 'bg-rose-100 text-rose-700 ring-rose-200'
-      : 'bg-amber-50 text-amber-700 ring-amber-200';
-
   return (
-    <section className="w-full bg-[#FFF6ED] py-12 sm:py-16">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <header className="text-center mb-8 sm:mb-10">
-          <h2
-            className="text-xl sm:text-2xl md:text-3xl text-[#1E1E1E]"
-            style={{ fontFamily: 'Poppins, ui-sans-serif, system-ui' }}
-          >
-            ✨ Come funziona la promo esclusiva WhatsApp
-          </h2>
-          <p
-            className="mt-3 text-[#1E1E1E]/80 text-base sm:text-lg max-w-2xl mx-auto"
-            style={{ fontFamily: 'Open Sans, ui-sans-serif, system-ui' }}
-          >
-            È semplicissimo! Segui questi 3 passaggi e approfitta del tuo vantaggio riservato 🎁
-          </p>
-        </header>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6">
-          {steps.map((s, idx) => (
+    <section aria-labelledby="come-funziona" className="py-10 sm:py-14">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 id="come-funziona" className="text-2xl sm:text-3xl font-bold text-[#1E1E1E] mb-6">
+          Come funziona
+        </h2>
+        <div className="grid sm:grid-cols-3 gap-4 sm:gap-6">
+          {steps.map((s, i) => (
             <div
-              key={idx}
-              className="h-full rounded-2xl bg-white/70 shadow-sm ring-1 ring-black/5 p-5 text-center flex flex-col items-center justify-start"
+              key={s.title}
+              className={
+                'rounded-2xl p-5 sm:p-6 shadow-md ' +
+                (i % 2 === 0 ? 'bg-[#FFF6ED] text-[#1E1E1E]' : 'bg-[#D82B2B] text-[#FFF6ED]')
+              }
             >
-              <div
-                className={`mb-4 inline-flex items-center justify-center w-14 h-14 rounded-full ring-1 ${toneClasses(
-                  s.tone
-                )}`}
-                aria-hidden="true"
-              >
-                <span className="text-2xl" role="img" aria-label={s.title}>
-                  {s.icon}
-                </span>
-              </div>
-              <h3
-                className="text-[#1E1E1E] text-lg font-semibold"
-                style={{ fontFamily: 'Poppins, ui-sans-serif, system-ui' }}
-              >
-                {s.title}
-              </h3>
-              <p
-                className="mt-2 text-[#1E1E1E]/80 text-sm leading-relaxed"
-                style={{ fontFamily: 'Open Sans, ui-sans-serif, system-ui' }}
-              >
-                {s.desc}
-              </p>
+              <div className="text-sm opacity-80 mb-1">Passo {i + 1}</div>
+              <div className="text-lg font-semibold mb-2">{s.title}</div>
+              <p className="text-sm leading-relaxed opacity-95">{s.desc}</p>
             </div>
           ))}
         </div>

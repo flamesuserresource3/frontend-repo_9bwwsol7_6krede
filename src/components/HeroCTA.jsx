@@ -1,24 +1,36 @@
-import { Download } from 'lucide-react';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
+
+function getBackendUrl() {
+  const base = import.meta.env.VITE_BACKEND_URL?.replace(/\/$/, '') || '';
+  return `${base}/coupon`;
+}
 
 export default function HeroCTA() {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleClick = useCallback(async (e) => {
-    e.preventDefault();
-    if (loading) return;
+  const handleClick = async () => {
     setLoading(true);
+    setError('');
     try {
-      const base = import.meta.env.VITE_BACKEND_URL || '';
-      const res = await fetch(`${base}/coupon`, { method: 'POST' });
-      if (!res.ok) throw new Error('Errore durante la generazione del coupon');
+      const res = await fetch(getBackendUrl(), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Errore ${res.status}`);
+      }
+
+      const cd = res.headers.get('Content-Disposition');
+      let filename = 'coupon.png';
+      if (cd) {
+        const match = cd.match(/filename\*=UTF-8''([^;\n\r]+)/) || cd.match(/filename="?([^";\n\r]+)"?/);
+        if (match && match[1]) filename = decodeURIComponent(match[1]);
+      }
+
       const blob = await res.blob();
-
-      // Try to extract filename from header
-      const cd = res.headers.get('Content-Disposition') || '';
-      const match = cd.match(/filename=([^;]+)/i);
-      const filename = match ? match[1] : 'miabaucoupon.png';
-
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -27,36 +39,26 @@ export default function HeroCTA() {
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-    } catch (err) {
-      alert('Spiacenti, non siamo riusciti a generare il coupon. Riprova tra poco.');
-      console.error(err);
+    } catch (e) {
+      setError('Qualcosa è andato storto. Riprova.');
+      console.error(e);
     } finally {
       setLoading(false);
     }
-  }, [loading]);
+  };
 
   return (
-    <div className="space-y-3">
-      <div className="flex justify-center">
-        <a
-          href="#"
-          onClick={handleClick}
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#1E1E1E] text-white shadow-md hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1E1E1E] disabled:opacity-60"
-          style={{ fontFamily: 'Poppins, ui-sans-serif, system-ui' }}
-          aria-busy={loading}
-        >
-          <Download className="w-5 h-5" />
-          <span>{loading ? 'Generazione in corso…' : 'SCARICA IL TUO COUPON'}</span>
-        </a>
-      </div>
-
-      <p
-        className="text-center text-[#1E1E1E]/80 text-sm"
-        style={{ fontFamily: 'Open Sans, ui-sans-serif, system-ui' }}
+    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+      <button
+        type="button"
+        onClick={handleClick}
+        disabled={loading}
+        aria-busy={loading}
+        className="inline-flex items-center justify-center rounded-lg bg-[#1E1E1E] text-[#FFF6ED] px-5 py-3 font-semibold shadow-lg hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1E1E1E] ring-offset-[#FFF6ED] disabled:opacity-70"
       >
-        Promo riservata esclusivamente agli iscritti al canale WhatsApp MiaoBau.<br className="hidden sm:block" />
-        Non condividere questo link 💬
-      </p>
+        {loading ? 'Generazione in corso…' : 'Scarica il tuo coupon'}
+      </button>
+      {error && <span role="alert" className="text-sm text-[#1E1E1E]/80">{error}</span>}
     </div>
   );
 }

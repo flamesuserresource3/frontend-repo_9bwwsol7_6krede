@@ -1,51 +1,34 @@
-import FontLoader from './components/FontLoader';
-import HeroTitle from './components/HeroTitle';
-import HeroCTA from './components/HeroCTA';
-import HowItWorks from './components/HowItWorks';
-import HeroImage from './components/HeroImage';
-import Countdown from './components/Countdown';
+import HeroTitle from './components/HeroTitle.jsx';
+import HeroCTA from './components/HeroCTA.jsx';
+import HeroImage from './components/HeroImage.jsx';
+import HowItWorks from './components/HowItWorks.jsx';
 
-function App() {
+export default function App() {
+  // NOTE: The Canva link provided is not a direct image URL. If you have a direct PNG/JPG/WebP URL,
+  // replace below. The component will gracefully fallback if loading fails.
+  const canvaEditLink = 'https://www.canva.com/design/DAG30ok-Wz0/7Y50iS3ptKSJ3srG2bh1BQ/edit?utm_content=DAG30ok-Wz0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton';
+
   return (
-    <div className="min-h-screen w-full bg-[#D82B2B] flex flex-col items-center justify-start p-4 sm:p-6">
-      <FontLoader />
-
-      {/* Decorative accent blobs */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-8 -left-8 w-48 h-48 sm:w-72 sm:h-72 rounded-full bg-[#FFF6ED]/30 blur-2xl" />
-        <div className="absolute -bottom-10 -right-10 w-56 h-56 sm:w-80 sm:h-80 rounded-full bg-[#FFF6ED]/20 blur-3xl" />
-      </div>
-
-      <main className="relative w-full max-w-5xl">
-        <section className="bg-white rounded-3xl shadow-2xl/20 shadow-xl ring-1 ring-black/5 overflow-hidden">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 p-6 sm:p-10">
-            <div className="flex flex-col justify-center">
-              <HeroTitle />
-              <div className="mt-6">
-                <HeroCTA />
-              </div>
-            </div>
-            <div className="flex items-center">
-              <HeroImage />
-            </div>
+    <div className="min-h-screen bg-[#D82B2B]">
+      <header className="max-w-6xl mx-auto px-4 pt-10 sm:pt-14">
+        <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="order-2 md:order-1 space-y-6">
+            <HeroTitle />
+            <HeroCTA />
           </div>
+          <div className="order-1 md:order-2">
+            <HeroImage imageUrl={canvaEditLink} />
+          </div>
+        </div>
+      </header>
 
-          {/* Cream accent footer bar */}
-          <div className="h-3 bg-[#FFF6ED]" />
-        </section>
+      <main className="bg-white/0">
+        <HowItWorks />
       </main>
 
-      {/* Section 2: How it works */}
-      <div className="w-full mt-8">
-        <HowItWorks />
-      </div>
-
-      {/* Section 4: Countdown / Scadenza */}
-      <div className="w-full">
-        <Countdown />
-      </div>
+      <footer className="py-10 text-center text-[#FFF6ED]/90">
+        <p className="text-sm">© {new Date().getFullYear()} MiaoBau — Tutti i diritti riservati.</p>
+      </footer>
     </div>
   );
 }
-
-export default App;
